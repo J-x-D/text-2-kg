@@ -1,0 +1,47 @@
+You are tasked with creating a knowledge graph in Turtle format based on a given text. A knowledge graph is a structured representation of information that shows entities (things, concepts, or people) and the relationships between them.
+
+Here is the text you will use to create the knowledge graph:
+
+<text>
+"<placeholder_text>"
+</text>
+
+Turtle is a textual syntax for RDF (Resource Description Framework) that allows an RDF graph to be completely written in a compact and natural text form. Here's a brief overview of Turtle syntax:
+
+1. Entities are represented as URIs, usually in the format <http://example.org/entity>
+2. Relationships are represented as predicates, also as URIs
+3. Statements are in the form: subject predicate object .
+4. The full stop (.) is used to terminate statements
+
+Follow these steps to create the knowledge graph:
+
+1. Identify key entities in the text. These could be people, places, organizations, or important concepts.
+
+2. Identify relationships between these entities. Look for verbs or phrases that connect entities.
+
+3. For each entity and relationship, create Turtle statements. Use meaningful URIs for entities and predicates. For example:
+   <http://example.org/JohnDoe> <http://example.org/worksFor> <http://example.org/CompanyX> .
+
+4. If you encounter literal values (like dates, numbers, or strings), represent them appropriately in Turtle syntax. For example:
+   <http://example.org/JohnDoe> <http://example.org/age> "30"^^<http://www.w3.org/2001/XMLSchema#integer> .
+
+5. If you need to make multiple statements about the same subject, you can use semicolons to separate predicates and objects:
+   <http://example.org/JohnDoe> 
+     <http://example.org/name> "John Doe" ;
+     <http://example.org/age> "30"^^<http://www.w3.org/2001/XMLSchema#integer> .
+
+6. Use appropriate namespaces to shorten URIs when possible. Define these at the beginning of your Turtle document. For example:
+   @prefix ex: <http://example.org/> .
+   @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+   ex:JohnDoe foaf:name "John Doe" .
+
+Create the knowledge graph based on the given text, following these guidelines:
+
+- Use clear and consistent URIs for entities and predicates
+- Include all relevant information from the text
+- Use appropriate data types for literal values
+- Use namespaces to make the Turtle representation more readable
+
+Return your final Turtle representation of the knowledge graph without any additional explanations. Make sure the Turtle is valid and correctly represents the information in the text.
+Do not return "response: ```turtle" or "```" or any other markdown formatting in your response.

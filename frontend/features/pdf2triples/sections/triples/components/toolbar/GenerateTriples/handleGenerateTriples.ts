@@ -22,14 +22,14 @@ export async function handleGenerateTriples(prompt: string | undefined) {
       url: process.env.NEXT_PUBLIC_BACKEND_URL + "/execute",
       data: {
         prompt,
-        serialize: true
+        serialize: true,
       },
     }).catch((error) => {
       throw error;
     });
     return {
-      triples: response.data as unknown as RDFResource[]
-    }
+      triples: response.data as unknown as RDFResource[],
+    };
   } catch (error) {
     console.error(error);
     const axiosError = error as any;

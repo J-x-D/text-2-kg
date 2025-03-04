@@ -56,17 +56,6 @@ export default function TriplesSection() {
     selectedRDFResource,
   } = useStore();
 
-  console.log(
-    "%cTriplesSection.tsx line:62 triples",
-    "color: white; background-color: #007acc;",
-    triples,
-    triples.filter((triple) =>
-      Object.keys(triple).includes(
-        "http://www.w3.org/2000/01/rdf-schema#comment",
-      ),
-    ),
-  );
-
   const hasAnyTriples = checkHasAnyTriples(triples);
   const [editStatus, setEditStatus] = useState<
     "subject" | "object" | "predicate" | null
@@ -135,7 +124,7 @@ export default function TriplesSection() {
   // check if relevantIndicator is in triple
 
   const relevantTriples = triples.filter((triple) =>
-    Object.keys(triple).includes(relevantIndicator),
+    Object.keys(triple ?? {}).includes(relevantIndicator),
   );
 
   const leftTriples = relevantTriples.filter(

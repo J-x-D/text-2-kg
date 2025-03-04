@@ -1,0 +1,10 @@
+
+###Instruction###
+Generate a knowledge graph in TURTLE based on the following text. You have to define all the prefixes you are using like "xsd", "ex", "rdf", "rdfs", ... .
+
+###Input###
+"<placeholder_text>"
+
+Return only valid TURTLE without any explanations.
+Do not return "response: ```turtle" or "```"!!!
+      

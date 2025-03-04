@@ -7,3 +7,4 @@ numpy==2.0.2
 openai==0.27.0
 sqlalchemy==2.0.5.post1
 rdfizer==4.6.7
+anthropic
