@@ -5,32 +5,6 @@ import os
 from sqlalchemy import create_engine, text
 from dotenv import load_dotenv
 
-# import declared routes
-from routes.rml_rule import rml_rule_blueprint
-from routes.upload_file import upload_file_blueprint
-from routes.config import config_blueprint
-from routes.get_ontology_class import get_ontology_class_blueprint
-from routes.get_fitting_ontology_classes import fitting_ontology_classes_blueprint
-from routes.get_semantically_closest import semantically_closest_blueprint
-from routes.create_embeddings import embedding_blueprint
-from routes.store_file import store_file_blueprint
-from routes.graph_creation import graph_creation_blueprint
-from routes.update_ontology_class import update_ontology_class_blueprint
-from routes.combine import combine_blueprint
-from routes.get_rml_rule_triples import get_rml_rule_triples_blueprint
-from routes.get_mapped_predicates import mapped_predicates_blueprint
-from routes.update_triple import update_triple_blueprint
-from routes.add_triple import add_triple_blueprint
-from routes.delete_triple import delete_triple_blueprint
-from routes.get_predicate_suggestions import get_predicate_suggestions_blueprint
-from routes.create_ontology import create_ontology_blueprint
-from routes.json_to_turtle import json_to_turtle_blueprint
-from routes.run_rml_mapper import run_rml_mapper_blueprint
-from routes.update_predicate import update_predicate_blueprint
-from routes.verify_predicate import verify_predicate_blueprint
-from routes.pdf_create_triples import pdf_create_triples_blueprint
-from routes.is_backend_running import is_backend_running_blueprint
-from routes.check import check_blueprint
 from routes.neural.solve_coreferences import solve_coref_blueprint
 from routes.neural.solve_not_in_text import solve_not_in_text_blueprint
 from routes.symbolic.process_ontology import process_ontology_blueprint
@@ -38,6 +12,8 @@ from routes.symbolic.get_ontology_class import get_classes_blueprint
 from routes.neural.topics import topics_blueprint
 from routes.neural.execute import execute_blueprint
 from routes.symbolic.calc_confidence_score import calc_confidence_score_blueprint
+from routes.symbolic.process_text import process_text_blueprint
+from routes.symbolic.get_sentence import get_sentence_blueprint
 
 load_dotenv()
 
@@ -52,32 +28,9 @@ OPENAI_ORGANIZATION = os.environ.get("OPENAI_ORGANIZATION")
 
 # create flask app
 app = Flask(__name__)
-CORS(app, origins="http://localhost:3000")
+CORS(app, origins="http://localhost:3000", methods=["GET", "POST", "OPTIONS"])
 
 # register blueprints
-app.register_blueprint(rml_rule_blueprint)
-app.register_blueprint(config_blueprint)
-app.register_blueprint(get_ontology_class_blueprint)
-app.register_blueprint(fitting_ontology_classes_blueprint)
-app.register_blueprint(semantically_closest_blueprint)
-app.register_blueprint(embedding_blueprint)
-app.register_blueprint(store_file_blueprint)
-app.register_blueprint(graph_creation_blueprint)
-app.register_blueprint(update_ontology_class_blueprint)
-app.register_blueprint(get_rml_rule_triples_blueprint)
-app.register_blueprint(mapped_predicates_blueprint)
-app.register_blueprint(update_triple_blueprint)
-app.register_blueprint(add_triple_blueprint)
-app.register_blueprint(delete_triple_blueprint)
-app.register_blueprint(get_predicate_suggestions_blueprint)
-app.register_blueprint(create_ontology_blueprint)
-app.register_blueprint(json_to_turtle_blueprint)
-app.register_blueprint(run_rml_mapper_blueprint)
-app.register_blueprint(update_predicate_blueprint)
-app.register_blueprint(verify_predicate_blueprint)
-app.register_blueprint(pdf_create_triples_blueprint)
-app.register_blueprint(is_backend_running_blueprint)
-app.register_blueprint(check_blueprint)
 app.register_blueprint(solve_coref_blueprint)
 app.register_blueprint(solve_not_in_text_blueprint)
 app.register_blueprint(process_ontology_blueprint)
@@ -85,6 +38,8 @@ app.register_blueprint(get_classes_blueprint)
 app.register_blueprint(topics_blueprint)
 app.register_blueprint(execute_blueprint)
 app.register_blueprint(calc_confidence_score_blueprint)
+app.register_blueprint(process_text_blueprint)
+app.register_blueprint(get_sentence_blueprint)
 
 connection_string = os.getenv("CONNECTION_STRING")
 mode = os.getenv("MODE")
@@ -104,9 +59,6 @@ def hello():
 
     return "OK"
 
-
-# /etc/letsencrypt/live/lxs.germanywestcentral.cloudapp.azure.com/fullchain.pem
-# /etc/letsencrypt/live/lxs.germanywestcentral.cloudapp.azure.com/privkey.pem
 
 # run the app
 if __name__ == "__main__":
