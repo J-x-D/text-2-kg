@@ -6,7 +6,6 @@ We have split the application into three parts:
 
 - [Frontend](./frontend/README.md) - A Next.js application that is built using React and Typescript and Material UI.
 - [Backend](./backend/README.md) - A python application that is responsible for converting text to a knowledge graph.
-- [External](./db/README.md) - We have included the database in here and a few examples for ontologies.
 
 ## Getting Started - Development
 
