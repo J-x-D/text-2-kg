@@ -2,17 +2,11 @@
 
 This is the frontend for the LXS Text to KG application. This is a Next.js application that is built using React and Typescript and Material UI.
 
-## Getting Started - Development
+## Getting Started
 
-To get started, you will need to install the dependencies for the project in each of the folders. You can do this by running the following commands:
-
-### Frontend
+To get started, you can run the entire application using Docker Compose from the root directory:
 
 ```bash
-# Navigate to the frontend folder
-cd frontend
-# Install the dependencies
-pnpm install
-# Start the application
-pnpm dev
+cd ..
+docker-compose up
 ```

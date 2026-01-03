@@ -12,9 +12,11 @@ const nextConfig = {
       {
         source: "/api/:path*",
         destination:
-          process.env.NODE_ENV === "development"
-            ? "http://0.0.0.0:8000/api/:path*"
-            : "http://51.116.135.160:8000/:path*",
+          process.env.API_URL
+            ? `${process.env.API_URL}/:path*`
+            : process.env.NODE_ENV === "development"
+              ? "http://0.0.0.0:8000/api/:path*"
+              : "http://51.116.135.160:8000/:path*",
       },
     ];
   },

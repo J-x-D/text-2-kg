@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=sa
+      - POSTGRES_PASSWORD=YourStrong!Passw0rd
+      - POSTGRES_DB=db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/app/scripts/init.sql:/docker-entrypoint-initdb.d/create_schemas.sql
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./backend/app
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    environment:
+      # Use service name 'postgres' which resolves to the container IP in the same network
+      - CONNECTION_STRING=postgresql://sa:YourStrong!Passw0rd@postgres:5432/db
+      - MODE=dev
+      # Pass through OPENAI keys if they exist in the shell or .env file
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_ORGANIZATION=${OPENAI_ORGANIZATION}
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - API_URL=http://backend:80
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge

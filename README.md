@@ -10,57 +10,19 @@ We have split the application into three parts:
 - [Frontend](./frontend/README.md) - A Next.js application that is built using React and Typescript and Material UI.
 - [Backend](./backend/README.md) - A python application that is responsible for converting text to a knowledge graph.
 
-## Getting Started - Development
+## Getting Started
 
-To get started, you will need to install the dependencies for the project in each of the folders. You can do this by running the following commands:
+### Run with Docker Compose
 
-### Frontend
-
-```bash
-# Navigate to the frontend folder
-cd frontend
-# Install the dependencies
-pnpm install
-# Start the application
-pnpm dev
-```
-
-### Backend
+To run the entire application (Frontend, Backend, and Database) with a single command:
 
 ```bash
-# Navigate to the backend folder
-cd backend
-# Navigate to the app folder
-cd app
-# Install the dependencies
-pip install -r requirements.txt
-# Start the application
-python app.py
+docker-compose up --build
 ```
 
-### Database
-
-#### Start the database
-
-```bash
-# Navigate to the db folder
-cd db
-# Navigate to the database folder
-cd database
-# Start the database
-docker compose up
-```
-
-#### Start the examples
-
-```bash
-# Navigate to the db folder
-cd db
-# Navigate to the examples folder
-cd examples
-# Host the examples
-python3 -m http.server 8001
-```
+- **Frontend**: http://localhost:3000
+- **Backend**: http://localhost:8000
+- **Database**: localhost:5433
 
 ## Ontology example
 
