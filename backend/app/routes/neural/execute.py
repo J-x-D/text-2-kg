@@ -59,7 +59,7 @@ def get_response_data():
             {e}
         """
         print(error_prompt)
-        response_data = get_model_response(error_prompt, "gpt-4")
+        response_data = get_model_response(error_prompt, "gpt-4o")
         print(f"\033[94mnew response: {response_data}\033[0m")
 
         if serialize:
