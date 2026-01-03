@@ -159,11 +159,3 @@ If you use this work in your research, please cite:
   isbn="978-3-032-13109-6"
 }
 ```
-
-## License
-
-[Add your license information here]
-
-## Contributors
-
-[Add contributor information here]
