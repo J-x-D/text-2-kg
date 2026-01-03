@@ -28,11 +28,12 @@ export default async function handler(
     const pdfBuffer = Buffer.from(response.data);
 
     const pdfParser = new PDFParser();
-    pdfParser.on("pdfParser_dataError", (errData: string) => {
+    pdfParser.on("pdfParser_dataError", (errData: Error | { parserError: Error; }) => {
       console.error(errData);
+      const errorMessage = errData instanceof Error ? errData.message : errData.parserError.message;
       return res
         .status(500)
-        .json({ statusCode: 500, message: errData.toString() });
+        .json({ statusCode: 500, message: errorMessage });
     });
     pdfParser.on("pdfParser_dataReady", (pdfData) => {
       return res.status(200).json(pdfData);

@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { getBackendUrl } from "@/src/utils/getBackendUrl";
 
 export default function TopicSuggestions({
   text,
@@ -35,7 +36,7 @@ export default function TopicSuggestions({
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/execute`,
+        `${getBackendUrl()}/execute`,
         {
           prompt,
         },
@@ -60,7 +61,7 @@ export default function TopicSuggestions({
     );
 
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/execute`,
+      `${getBackendUrl()}/execute`,
       {
         prompt,
       },

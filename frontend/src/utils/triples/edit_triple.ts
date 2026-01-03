@@ -1,5 +1,6 @@
 import { RmlRule } from "types/RmlRulesTypes";
 import axios from "axios";
+import { getBackendUrl } from "../getBackendUrl";
 
 interface EditTripleProps {
   new_triple: {
@@ -24,7 +25,7 @@ export default async function editTriple({
   old_triple,
   rmlRule,
 }: EditTripleProps) {
-  const url = process.env.NEXT_PUBLIC_BACKEND_URL + "/update_triple"; // changed from edit_triple to update_triple
+  const url = getBackendUrl() + "/update_triple"; // changed from edit_triple to update_triple
   const data = {
     new_triple,
     old_triple,

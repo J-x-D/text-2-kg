@@ -23,6 +23,7 @@ import theme from "src/theme";
 import { Close, ContentCopy, Download } from "@mui/icons-material";
 import axios from "axios";
 import styled from "@emotion/styled";
+import { getBackendUrl } from "@/src/utils/getBackendUrl";
 
 const SuccessTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -57,7 +58,7 @@ export default function CustomRuleViewDialog({
   }, []);
 
   async function changeCodeToTurtle(code: string): Promise<string> {
-    const url = process.env.NEXT_PUBLIC_BACKEND_URL + "/getTurtle";
+    const url = getBackendUrl() + "/getTurtle";
     try {
       const response = await axios.post(url, code, {
         headers: {

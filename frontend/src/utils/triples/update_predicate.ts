@@ -1,6 +1,7 @@
 import { RmlRule } from "types/RmlRulesTypes";
 import axios from "axios";
 import addTriple from "./add_triple";
+import { getBackendUrl } from "../getBackendUrl";
 
 interface UpdatePredicateProps {
   rmlRule: RmlRule[];
@@ -18,7 +19,7 @@ export default async function updatePredicate({
   predicate,
   backup,
 }: UpdatePredicateProps) {
-  const url = process.env.NEXT_PUBLIC_BACKEND_URL + "/update_predicate";
+  const url = getBackendUrl() + "/update_predicate";
   const data = {
     predicate,
     old_predicate,

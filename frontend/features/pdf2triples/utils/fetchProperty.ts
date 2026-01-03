@@ -1,11 +1,12 @@
 import axios from "axios";
 import { GroupedPredicateOptions } from "../sections/triples/components/editTriple/predicate/EditPredicateProperty";
 import { PropertyFromOntology } from "types/PropertyFromOntology";
+import { getBackendUrl } from "@/src/utils/getBackendUrl";
 
 export default async function fetchPropertyViaNeuralEngine(query: string, ontologies: string[]): Promise<GroupedPredicateOptions[]> {
     if (query.length < 1 || ontologies.length < 1) return [];
 
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/get_properties`;
+    const url = `${getBackendUrl()}/get_properties`;
     const response = await axios.post(url, { query, ontologies });
     return (response.data).map((classFromOntology: PropertyFromOntology) => {
         return {

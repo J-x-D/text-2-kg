@@ -7,19 +7,7 @@ module.exports = removeImports({
 const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
-  rewrites: async () => {
-    return [
-      {
-        source: "/api/:path*",
-        destination:
-          process.env.API_URL
-            ? `${process.env.API_URL}/:path*`
-            : process.env.NODE_ENV === "development"
-              ? "http://0.0.0.0:8000/api/:path*"
-              : "http://51.116.135.160:8000/:path*",
-      },
-    ];
-  },
+  output: 'standalone',
 };
 
 const buildConfig = (_phase) => {

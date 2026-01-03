@@ -15,6 +15,7 @@ import OntologyClassView from "./OntologyClassView";
 import axios from "axios";
 import { useStore } from "store/store";
 import { useRouter } from "next/navigation";
+import { getBackendUrl } from "@/src/utils/getBackendUrl";
 
 export default function CreateOntology() {
   const { setOntologyUrls, ontologyUrls } = useStore();
@@ -59,7 +60,7 @@ export default function CreateOntology() {
       classes,
     };
     const response = await axios.post(
-      process.env.NEXT_PUBLIC_BACKEND_URL + "/create_ontology",
+      getBackendUrl() + "/create_ontology",
       ontology,
     );
 

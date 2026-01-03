@@ -5,10 +5,10 @@ import axios from "axios";
 import { backOff } from "exponential-backoff";
 import { AxiosError } from "axios";
 import { useState, useEffect } from "react";
-
-const url = process.env.NEXT_PUBLIC_BACKEND_URL + "/rml_rule";
+import { getBackendUrl } from "@/src/utils/getBackendUrl";
 
 export default function useFetchRmlRules(autoFetch?: boolean) {
+  const url = getBackendUrl() + "/rml_rule";
   const [error, setError] = useState("");
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(false);

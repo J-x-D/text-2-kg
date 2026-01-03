@@ -13,6 +13,7 @@ import axios from "axios";
 import { CircularProgress } from "@mui/material";
 import { KNOWN_KEYS, RDFResource } from "features/pdf2triples/types/triple";
 import { getLabel } from "../utils/getTripleLabelAndClass";
+import { getBackendUrl } from "@/src/utils/getBackendUrl";
 
 const options = ["Remap Triple (ontology-based)", "Remap Triple (no ontology)"];
 
@@ -58,7 +59,7 @@ export default function RemapTriple({ triple }: { triple: any }) {
       .replaceAll("<placeholder_predicate>", predicate);
 
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/execute`,
+      `${getBackendUrl()}/execute`,
       {
         prompt,
         serialize: false,
@@ -79,7 +80,7 @@ export default function RemapTriple({ triple }: { triple: any }) {
         ) {
           const label = getLabel("subject", triple, rdfResources);
           const response = (await axios.post(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/get_classes`,
+            `${getBackendUrl()}/get_classes`,
             {
               ontologies: ontologyUrls,
               query: label,
@@ -106,7 +107,7 @@ export default function RemapTriple({ triple }: { triple: any }) {
           // has to be object
           const label = getLabel("object", triple, rdfResources);
           const response = (await axios.post(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/get_classes`,
+            `${getBackendUrl()}/get_classes`,
             {
               ontologies: ontologyUrls,
               query: label,

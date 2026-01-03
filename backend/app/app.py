@@ -20,6 +20,7 @@ load_dotenv()
 # load environment variables
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 OPENAI_ORGANIZATION = os.environ.get("OPENAI_ORGANIZATION")
+mode = os.getenv("MODE", "dev")
 
 # set openai api key and organization
 
@@ -28,7 +29,29 @@ OPENAI_ORGANIZATION = os.environ.get("OPENAI_ORGANIZATION")
 
 # create flask app
 app = Flask(__name__)
-CORS(app, origins="http://localhost:3000", methods=["GET", "POST", "OPTIONS"])
+
+# Configure CORS to allow requests from different origins
+# Support for GitHub Codespaces, localhost, and Docker networking
+if mode == "dev":
+    # In development mode, allow all origins (needed for GitHub Codespaces)
+    CORS(app, 
+         origins="*",
+         methods=["GET", "POST", "OPTIONS", "PUT", "DELETE", "PATCH"],
+         allow_headers=["Content-Type", "Authorization", "Accept", "X-Requested-With"],
+         expose_headers=["Content-Type", "Authorization"],
+         supports_credentials=False,
+         send_wildcard=True,
+         always_send=True
+    )
+else:
+    allowed_origins = [
+        "http://localhost:3000",
+        "https://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://frontend:3000",
+    ]
+    CORS(app, origins=allowed_origins, methods=["GET", "POST", "OPTIONS", "PUT", "DELETE"],
+         allow_headers=["Content-Type", "Authorization"], supports_credentials=True)
 
 # register blueprints
 app.register_blueprint(solve_coref_blueprint)
@@ -42,7 +65,6 @@ app.register_blueprint(process_text_blueprint)
 app.register_blueprint(get_sentence_blueprint)
 
 connection_string = os.getenv("CONNECTION_STRING")
-mode = os.getenv("MODE")
 
 
 @app.route("/")

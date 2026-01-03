@@ -14,6 +14,7 @@ import { ExtractedTextResponse } from "../../../../types/pdfResponse";
 import ProcessText from "./steps/process/ProcessText";
 import stringToWords from "../../../../utils/stringToWords";
 import axios from "axios";
+import { getBackendUrl } from "@/src/utils/getBackendUrl";
 
 const StepChild = ({
   activeStep,
@@ -75,7 +76,7 @@ export default function ImportTextDialog({
 
   const processText = async (text: string) => {
     const response = await axios.post(
-      process.env.NEXT_PUBLIC_BACKEND_URL + "/process_text",
+      getBackendUrl() + "/process_text",
       {
         text,
       },

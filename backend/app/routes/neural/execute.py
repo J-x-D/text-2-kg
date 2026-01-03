@@ -5,7 +5,6 @@ from flask import Blueprint, jsonify, request
 from dotenv import load_dotenv
 import json
 import os
-import anthropic
 
 load_dotenv()
 
@@ -22,38 +21,9 @@ def call_openai(prompt, model):
     return completion.choices[0].message.content
 
 
-def call_deepseek(prompt, model):
-    client = OpenAI(
-        api_key=os.getenv("DEEPSEEK_API_KEY"),
-        base_url="https://api.deepseek.com/v1",
-    )
-    completion = client.chat.completions.create(
-        model=model,
-        messages=[{"role": "user", "content": prompt}],
-    )
-    return completion.choices[0].message.content
-
-
-def call_claude(prompt, model):
-    client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-    message = client.messages.create(
-        model="claude-3-7-sonnet-20250219",
-        max_tokens=20000,
-        temperature=1,
-        messages=[
-            {"role": "user", "content": [{"type": "text", "text": prompt}]},
-        ],
-    )
-    return message.content
-
-
 def get_model_response(prompt, model):
     if model.startswith("gpt-"):
         return call_openai(prompt, model)
-    elif "claude" in model:
-        return call_claude(prompt, model)
-    else:
-        return call_deepseek(prompt, model)
 
 
 @execute_blueprint.route("/execute", methods=["POST"])

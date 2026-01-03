@@ -7,6 +7,7 @@ import { RDFResource } from "features/pdf2triples/types/triple";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { getLabel } from "features/pdf2triples/sections/triples/utils/getTripleLabelAndClass";
+import { getBackendUrl } from "@/src/utils/getBackendUrl";
 
 const camelCaseToPhrase = (str: string) => (str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`) ?? '').replace(/_/g, ' ')
 
@@ -17,7 +18,7 @@ const generateTriples = async (prompt: string, pdf: ExtractedTextResponse | null
 
 // Function to get sentence for a given query
 const getSentenceForQuery = async (query: string, pdfId: string | undefined) => {
-  const res = await axios.post(process.env.NEXT_PUBLIC_BACKEND_URL + "/get_sentence", {
+  const res = await axios.post(getBackendUrl() + "/get_sentence", {
     query,
     id: pdfId,
   });
@@ -79,7 +80,7 @@ const processOntologyBased = async (triples: RDFResource[], ontologyUrls: string
     triples.map(async (triple) => {
       if (Object.keys(triple).includes("http://www.w3.org/2000/01/rdf-schema#comment")) {
         const label = getLabel("subject", triple, rdfResources);
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/get_classes`, {
+        const response = await axios.post(`${getBackendUrl()}/get_classes`, {
           ontologies: ontologyUrls,
           query: label,
         });
@@ -92,7 +93,7 @@ const processOntologyBased = async (triples: RDFResource[], ontologyUrls: string
         return triple;
       } else {
         const label = getLabel("object", triple, rdfResources);
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/get_classes`, {
+        const response = await axios.post(`${getBackendUrl()}/get_classes`, {
           ontologies: ontologyUrls,
           query: label,
         });

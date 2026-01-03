@@ -1,6 +1,7 @@
 import { TextTriple } from "features/pdf2triples/sections/content/types/content";
 import { RDFResource } from "features/pdf2triples/types/triple";
 import axios from "axios";
+import { getBackendUrl } from "@/src/utils/getBackendUrl";
 
 interface Response {
   triples: RDFResource[];
@@ -19,7 +20,7 @@ export async function handleGenerateTriples(prompt: string | undefined) {
     const response: { data: TextTriple[] } = await axios({
       method: "post",
       timeout: 1000 * 60 * 5, // 5 minutes
-      url: process.env.NEXT_PUBLIC_BACKEND_URL + "/execute",
+      url: getBackendUrl() + "/execute",
       data: {
         prompt,
         serialize: true,

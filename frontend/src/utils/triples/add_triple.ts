@@ -1,5 +1,6 @@
 import { RmlRule } from "types/RmlRulesTypes";
 import axios from "axios";
+import { getBackendUrl } from "../getBackendUrl";
 
 interface AddTripleProps {
   triple: {
@@ -14,7 +15,7 @@ interface AddTripleProps {
 }
 
 export default async function addTriple({ triple, rmlRule }: AddTripleProps) {
-  const url = process.env.NEXT_PUBLIC_BACKEND_URL + "/add_triple";
+  const url = getBackendUrl() + "/add_triple";
   const data = {
     triple,
     rml_rule: rmlRule,

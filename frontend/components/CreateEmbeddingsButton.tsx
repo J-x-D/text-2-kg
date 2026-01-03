@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect } from "react";
+import { getBackendUrl } from "@/src/utils/getBackendUrl";
 
 export default function CreateEmbeddingsButton({
   selectedOntologies,
@@ -62,7 +63,7 @@ export default function CreateEmbeddingsButton({
       });
     }
     setLoading(true);
-    const url = process.env.NEXT_PUBLIC_BACKEND_URL + "/process_ontology";
+    const url = getBackendUrl() + "/process_ontology";
     try {
       const response = await axios.post(url, {
         ontologies: selectedOntologies,

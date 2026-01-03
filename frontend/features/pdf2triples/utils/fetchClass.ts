@@ -1,5 +1,6 @@
 import { ClassFromOntology } from "features/pdf2triples/types/class";
 import axios from "axios";
+import { getBackendUrl } from "@/src/utils/getBackendUrl";
 
 export type GroupedOptions = {
   group: string;
@@ -15,7 +16,7 @@ export async function fetchClassViaNeuralEngine(
   // url has to be defined and query and ontologies have to be longer than 0
   if (query.length < 1 || ontologies.length < 1) return [];
 
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/get_classes`;
+  const url = `${getBackendUrl()}/get_classes`;
   const response = await axios.post(
     url,
     { query, ontologies },

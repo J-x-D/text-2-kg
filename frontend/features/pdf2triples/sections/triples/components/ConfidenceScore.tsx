@@ -4,6 +4,7 @@ import { CircularProgress, Tooltip, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect } from "react";
 import { getLabel, getTripleClass } from "../utils/getTripleLabelAndClass";
+import { getBackendUrl } from "@/src/utils/getBackendUrl";
 
 type LabelClassCombo = {
   label: string;
@@ -67,9 +68,7 @@ export default function ConfidenceScore({ triple }: { triple: RDFResource }) {
         class: className,
         label,
       });
-      const url = `${
-        process.env.NEXT_PUBLIC_BACKEND_URL
-      }/calc_confidence_score?${query.toString()}`;
+      const url = `${getBackendUrl()}/calc_confidence_score?${query.toString()}`;
 
       const response = await axios.get(url);
       return response.data?.confidence_score ?? 0;

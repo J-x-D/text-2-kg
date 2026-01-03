@@ -1,6 +1,7 @@
 import { Prefix } from "types/Prefixes";
 import axios from "axios";
 import { prefixPredicate } from "./prefixPredicate";
+import { getBackendUrl } from "./getBackendUrl";
 
 export interface AutocompletePredicate {
   lov: string[];
@@ -48,7 +49,7 @@ async function getSemanticAutocomplete({
 }): Promise<string[]> {
   const endpoint = "get_semantically_closest_properties";
 
-  const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/${endpoint}`;
+  const url = `${getBackendUrl()}/${endpoint}`;
   const suggestions = await axios
     .post(url, {
       search: predicate,

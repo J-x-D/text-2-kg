@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { getBackendUrl } from "@/src/utils/getBackendUrl";
 
 type APIError = {
   error: string;
@@ -15,8 +16,7 @@ type DissolvedCoreferencesResponse = APISuccess | APIError;
 export default async function getDissolvedCoreferences(
   text: string,
 ): Promise<DissolvedCoreferencesResponse> {
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-  if (!backendUrl) return { error: "Backend URL not found" };
+  const backendUrl = getBackendUrl();
 
   try {
     const response: AxiosResponse<APISuccess> = await axios.post(

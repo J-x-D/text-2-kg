@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { RDFResource } from "features/pdf2triples/types/triple";
+import { getBackendUrl } from "@/src/utils/getBackendUrl";
 
 export default function useFetchRelatedOntology(
   ontologyUrls: (string | undefined)[],
@@ -13,7 +14,7 @@ export default function useFetchRelatedOntology(
     tableName: string,
   ): Promise<RDFResource[] | undefined> {
     const url =
-      process.env.NEXT_PUBLIC_BACKEND_URL + "/get_semantically_closest";
+      getBackendUrl() + "/get_semantically_closest";
     try {
       setLoading(true);
       const response = (await axios.post(url, {

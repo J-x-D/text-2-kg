@@ -16,13 +16,13 @@ CMD ["app.py"]
 FROM builder as dev-envs
 
 RUN <<EOF
-apk update
-apk add git
+apt-get update
+apt-get install -y git
 EOF
 
 RUN <<EOF
-addgroup -S docker
-adduser -S --shell /bin/bash --ingroup docker vscode
+groupadd docker
+useradd -m -s /bin/bash -g docker vscode
 EOF
 # install Docker tools (cli, buildx, compose)
 COPY --from=gloursdocker/docker / /
